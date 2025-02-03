@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/opt/xiver/testing-system/site/docker'
+let g:netrw_dirhist_9='/opt/xiver/testing-system/site'
+let g:netrw_dirhist_8='/opt/xiver'
+let g:netrw_dirhist_7='/opt/xiver/testing-system'
+let g:netrw_dirhist_6='/opt/xiver/testing-system/site'
+let g:netrw_dirhist_5='/opt/xiver/testing-system'
+let g:netrw_dirhist_4='/opt/xiver/testing-system/api'
+let g:netrw_dirhist_3='/opt/xiver/testing-system'
+let g:netrw_dirhist_2='/opt/xiver/testing-system/site'
+let g:netrw_dirhist_1='/opt/xiver/testing-system'

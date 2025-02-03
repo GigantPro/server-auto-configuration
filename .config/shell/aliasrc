@@ -1,0 +1,27 @@
+alias ls='exa -b --icons --group-directories-first'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ll -a'
+alias nv='nvim'
+alias p='python3'
+alias ..='cd ..'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias free='free -h'
+alias mkdir='mkdir -p'
+alias grep='grep --color=auto'
+alias sz="source $ZDOTDIR/.zshrc"
+alias sa="source $HOME/.config/shell/aliasrc"
+alias ga="git add ."
+alias gst="git status"
+alias gc="git commit -m"
+alias gp="git push"
+alias gpl="git pull"
+alias nf='neofetch'
+alias venv="echo 'юзай поетри дебил' && python3 -m venv venv && source venv/bin/activate"
+alias upd='sudo nala upgrade -y'
+alias cls='echo "это по-виндовому, не по христиански, поэтому пошел нахуй"'
+alias history='history -i'
+alias sv='source venv/bin/activate'
+alias sm='python3 main.py'
+alias sr='echo 'юзай поетри дебил' && pip install -U -r requirements.txt'

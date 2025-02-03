@@ -1,0 +1,38 @@
+#!/bin/zsh
+# Expand path.
+export PATH=$PATH:~/.local/share/scripts:/usr/sbin
+
+# Default programms.
+export EDITOR="nvim"
+
+# Clean up ~/
+export XDG_CONFIG_HOME="$HOME/.config"
+export DOWNLOAD_DIR="$HOME/Downloads"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
+export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
+export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+export LESSHISTFILE="-"
+export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+export HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache/zsh}/history"
+export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
+export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
+export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
+export GIT_CONFIG_SYSTEM="$HOME/.config/git/config"
+export TRASH_DIR="$HOME/.Trash"
+export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export MYPY_CACHE_DIR="$XDG_CACHE_HOME"/mypy
+
+# Other programms settings.
+export LESS=-R
+export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
+export FZF_DEFAULT_COMMAND='fd --type f -H""'
+export FZF_CTRL_T_COMMAND="command fd -L . --min-depth 1 | cut -b3-"
+export FZF_ALT_C_COMMAND="command fd -L . --min-depth 1 --type d | cut -b3-"
