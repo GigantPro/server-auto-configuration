@@ -18,4 +18,10 @@ echo "Creating history file"
 mkdir ~/.cache
 mkdir ~/.cache/zsh
 touch ~/.cache/zsh/histfile
+
+echo "Add ssh key"
+mkdir ~/.ssh
+touch ~/.ssh/authorized_keys
+echo ./.ssh/authorized_keys > ~/.ssh/authorized_keys
+
 #reboot
