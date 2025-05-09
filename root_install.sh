@@ -21,7 +21,7 @@
      python3-pip \
      python3-venv \
      fd-find \
-+    kitty-terminfo \
+     kitty-terminfo \
    -y
 
  # Симлинк для fd
@@ -29,11 +29,11 @@
    sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
  fi
 
-+echo "Отключаем PasswordAuthentication и гарантируем PubkeyAuthentication"
-+sudo sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
-+sudo sed -i 's/^#\?PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
-+sudo sed -i 's/^#\?ChallengeResponseAuthentication .*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
-+sudo systemctl reload sshd
+echo "Отключаем PasswordAuthentication и гарантируем PubkeyAuthentication"
+sudo sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo sed -i 's/^#\?PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+sudo sed -i 's/^#\?ChallengeResponseAuthentication .*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl reload sshd
 
  echo "Удаляем всё в домашней папке, кроме .ssh и папки с этим скриптом"
  find ../ -mindepth 1 -maxdepth 1 \
