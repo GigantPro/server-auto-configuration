@@ -1,65 +1,27 @@
-#!/bin/bash
+#/bin/sh
 
-set -euo pipefail
+echo "Installing dependencies"
+sudo apt update && sudo apt upgrade -y
+sudo apt install htop ranger fzf zsh neofetch neovim ibus procps exa highlight zoxide git -y
 
-# ===== 1. Проверка прав =====
-if [[ $(id -u) -ne 0 ]]; then
-  echo "Этот скрипт нужно запускать от root."
-  exit 1
-fi
+echo "Removing all files"
+find ../ -mindepth 1 -maxdepth 1 ! -name "server-auto-configuration" ! -name ".ssh" -exec rm -rf {} +
 
-# ===== 2. Определяем старого пользователя и его группу =====
-OLD_USER=$(awk -F: '$3 >= 1000 && $3 < 60000 && $1 != "nobody" {print; exit}' /etc/passwd | cut -d: -f1)
-if [[ -z "$OLD_USER" ]]; then
-  echo "Не удалось найти обычного пользователя для переименования."
-  exit 1
-fi
-OLD_GROUP=$(id -gn "$OLD_USER")
-echo "Найден пользователь: $OLD_USER (группа: $OLD_GROUP)"
+echo "Copeing all config files"
+find ./ -mindepth 1 -maxdepth 1 ! -name ".ssh" -exec cp -r {} ../
+rm -rf ../README.md ../install.sh ../.git
 
-# ===== 3. Запрос нового имени и проверка =====
-read -p "Введите новое имя пользователя: " NEW_USER
-if id "$NEW_USER" &>/dev/null; then
-  echo "Пользователь $NEW_USER уже существует."
-  exit 1
-fi
+echo "Switch to zsh"
+chsh -s $(which zsh)
 
-# ===== 4. Переименовываем группу =====
-if getent group "$OLD_GROUP" &>/dev/null; then
-  echo "Переименовываю группу $OLD_GROUP → $NEW_USER"
-  groupmod -n "$NEW_USER" "$OLD_GROUP"
-else
-  echo "Группа $OLD_GROUP не найдена, пропускаем её переименование."
-fi
+echo "Creating history file"
+mkdir ~/.cache
+mkdir ~/.cache/zsh
+touch ~/.cache/zsh/histfile
 
-# ===== 5. Переименовываем пользователя и домашнюю папку =====
-echo "Переименовываю пользователя $OLD_USER → $NEW_USER и перемещаю /home/$OLD_USER → /home/$NEW_USER"
-usermod -l "$NEW_USER" -d "/home/$NEW_USER" -m -g "$NEW_USER" "$OLD_USER"
+echo "Add ssh key"
+mkdir ~/.ssh
+touch ~/.ssh/authorized_keys
+echo ./.ssh/authorized_keys > ~/.ssh/authorized_keys
 
-# ===== 6. Установка пароля для нового пользователя =====
-read -s -p "Введите пароль для $NEW_USER: " PASS_USER
-echo
-echo "$NEW_USER:$PASS_USER" | chpasswd
-echo "Пароль для $NEW_USER установлен."
-
-# ===== 7. Установка пароля для root =====
-read -s -p "Введите пароль для root: " PASS_ROOT
-echo
-echo "root:$PASS_ROOT" | chpasswd
-echo "Пароль для root установлен."
-
-# ===== 8. Переименование хоста =====
-read -p "Введите новый hostname для машины: " NEW_HOST
-echo "$NEW_HOST" > /etc/hostname
-hostnamectl set-hostname "$NEW_HOST"
-
-# Обновим строку 127.0.1.1 в /etc/hosts
-if grep -qE '^127\.0\.1\.1\b' /etc/hosts; then
-  sed -i "s/^127\.0\.1\.1.*/127.0.1.1\t$NEW_HOST/" /etc/hosts
-else
-  echo -e "127.0.1.1\t$NEW_HOST" >> /etc/hosts
-fi
-
-echo "Hostname изменён на $NEW_HOST."
-
-echo "Инициализация завершена. Рекомендуется перезагрузить систему."
+#reboot
