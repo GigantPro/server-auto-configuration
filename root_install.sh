@@ -70,8 +70,6 @@ rm -f "$HOME/.local"
 # Создаём нужную иерархию
 mkdir -p "$HOME/.local/share/nvim/shada"
 # Выставляем корректные права
-chmod 700 "$HOME/.local"
-chmod 700 "$HOME/.local/share"
-chmod 700 "$HOME/.local/share/nvim"
+chown -R "$(whoami)" "$HOME"
 
 echo "Готово! Перезайдите по SSH — теперь только по ключам, и терминал Kitty на сервере больше не даст багов с повторяющимся вводом."
