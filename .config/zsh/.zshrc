@@ -23,8 +23,6 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
 
-alias nano='nvim'
-
 ### Prompt ###
 autoload -U promptinit && promptinit
 
