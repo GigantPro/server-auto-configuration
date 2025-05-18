@@ -66,7 +66,7 @@ chmod 600 ~/.ssh/authorized_keys
 # Настраиваем Neovim: создаём директории ШаДа и права
 echo "Настраиваем Neovim: создаём директории ShaDa и выставляем права"
 # Удаляем потенциальный файл ~/.local
-rm -f "$HOME/.local"
+rm -rf "$HOME/.local"
 # Создаём нужную иерархию
 mkdir -p "$HOME/.local/share/nvim/shada"
 # Выставляем корректные права
