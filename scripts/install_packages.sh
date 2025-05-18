@@ -17,7 +17,7 @@ if ! command -v fastfetch >/dev/null 2>&1; then
   echo "👉 fastfetch не найден в репозиториях – устанавливаем из GitHub…"
   # вытаскиваем тег последнего релиза, например "2.41.0"
   latest=$(wget -qO- \
-    https://github.com/fastfetch-cli/fastfetch/releases/download/latest/fastfetch-linux-aarch64.deb \
+    https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest \
     | grep -Po '"tag_name": "\K.*?(?=")')
   # архитектура, например "amd64" → совпадает с fastfetch-linux-amd64
   arch=$(dpkg --print-architecture)
