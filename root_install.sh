@@ -11,7 +11,7 @@ echo "👉 Настраиваем SSH…"
 "$SCRIPT_DIR"/scripts/configure_ssh.sh
 echo "✅ SSH настроен."
 
-echo "👉 Обновляем MOTD…"
+echo "👉 Устанавливаем и настраиваем MOTD…"
 "$SCRIPT_DIR"/scripts/update_motd.sh
 echo "✅ MOTD установлен."
 
