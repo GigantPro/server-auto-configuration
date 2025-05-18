@@ -12,18 +12,23 @@ if command -v fdfind >/dev/null 2>&1; then
   ln -sf "$(command -v fdfind)" /usr/local/bin/fd
 fi
 
-# 3) Устанавливаем fastfetch из GitHub, если нет пакета в системе
+# 3) Устанавливаем fastfetch из GitHub, если он не появился в системе
 if ! command -v fastfetch >/dev/null 2>&1; then
   echo "👉 fastfetch не найден в репозиториях – устанавливаем из GitHub…"
-  # Получаем последнюю версию
+  # вытаскиваем тег последнего релиза, например "2.41.0"
   latest=$(wget -qO- \
-    https://api.github.com/repos/LinusDierheimer/fastfetch/releases/latest \
+    https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest \
     | grep -Po '"tag_name": "\K.*?(?=")')
+  # архитектура, например "amd64" → совпадает с fastfetch-linux-amd64
   arch=$(dpkg --print-architecture)
-  pkg="fastfetch_${latest}_${arch}.deb"
-  tmp="/tmp/$pkg"
-  # Скачиваем и ставим
-  wget -qO "$tmp" "https://github.com/LinusDierheimer/fastfetch/releases/download/${latest}/${pkg}"
-  dpkg -i "$tmp"
+  asset_dir="fastfetch-linux-${arch}"
+  asset="fastfetch-linux-${arch}.deb"
+  url="https://github.com/fastfetch-cli/fastfetch/releases/download/${latest}/${asset_dir}/${asset}"
+  tmp="/tmp/${asset}"
+  # скачиваем и устанавливаем
+  echo "   Скачиваем ${asset}…"
+  wget -qO "$tmp" "$url" || { echo "❌ Не удалось скачать $url"; exit 1; }
+  echo "   Устанавливаем $asset…"
+  dpkg -i "$tmp" || apt -f install -y
   rm -f "$tmp"
 fi
