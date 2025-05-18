@@ -77,7 +77,7 @@ for home in /home/*; do
   touch   "$home"/.cache/zsh/histfile
 
   # ShaDa для Neovim
-  rm -f "$home"/.local
+  rm -rf "$home"/.local
   mkdir -p "$home"/.local/share/nvim/shada
 
   # выставляем права
